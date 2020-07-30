@@ -1,8 +1,17 @@
 import React from 'react';
+import Container from '@material-ui/core/Container';
 
+import NavBar from '../NavBar/NavBar';
+import AddTodo from '../AddTodo/AddTodo';
 const MainLayout = () => {
-    return(
-        <div>Todo</div>
+    return (
+        <div>
+            <Container maxWidth="sm">
+                <NavBar/>
+            </Container>
+
+        </div>
+
     );
 };
 /*
@@ -14,6 +23,10 @@ props transfer
 Routes
 Redux
 Thunk and Saga
+Hooks
+
+extras:
+form validation
 
 */
 export default MainLayout;
