@@ -7,12 +7,15 @@ class TodoList extends Component {
 
     componentDidMount()
     {
+        if(this.props.location.state!=undefined)
+        {
         let todos = this.state.todos;
         let todo = this.props.location.state.todos;
         console.log('didmount todo',todo);
         todos.push(todo);
         this.setState(({todos:todos}));
         console.log('didmount todos',this.state.todos);
+        }
     }
 
     render() {
