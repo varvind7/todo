@@ -8,14 +8,14 @@ import NavBar from './Components/NavBar/NavBar';
 function App() {
   return (
     <main>
-      
-      {/* <Switch>
+      <NavBar/>
+      <Switch>
       
       <Route path='/add' component={AddTodo}  exact/>
       <Route path='/todos' component={TodoList}  exact/> 
-      <Route path='/' component={MainLayout} />     
-      </Switch> */}
-      <MainLayout/>
+      {/* <Route path='/' component={MainLayout} />      */}
+      </Switch>
+      {/* <MainLayout/> */}
     </main>
   );
 }

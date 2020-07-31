@@ -2,12 +2,18 @@ import React,{Component} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-
+import Container from '@material-ui/core/Container';
+import { Redirect } from 'react-router-dom';
 class AddTodo extends Component {
     state={
+        redirect:false,
         heading:"",
         description:"",
         todos:[]
+    }
+
+    componentDidMount(){
+        this.setState({redirect:false});
     }
 
     handleSubmit = (e) => {
@@ -28,9 +34,10 @@ class AddTodo extends Component {
                 description:this.state.description
             }
             
-        ]
-        this.setState({todos:todos})
-        console.log(this.state.todos);
+        ];
+        this.setState({todos:todos,redirect:true});
+        //console.log(this.state.todos);
+        
     }
     handleChange= (e) => {
         this.setState({
@@ -38,7 +45,11 @@ class AddTodo extends Component {
         });
     }
     render() {
+
+        if(this.state.redirect === true)
+            return <Redirect to={{pathname:'/todos',state:{todos:this.state.todos}}}/>;
         return (
+            <Container maxWidth="sm">
         <Grid direction="row" container justify="center" alignItems="center" >
         <Grid item xs={12}>
         <div>
@@ -53,6 +64,7 @@ class AddTodo extends Component {
             </div>
         </Grid>
         </Grid>
+        </Container>
             
         )
     }

@@ -5,6 +5,7 @@ import Tab from '@material-ui/core/Tab';
 import AddTodo from '../AddTodo/AddTodo';
 import Box from '@material-ui/core/Box';
 import TodoList from '../TodoList/TodoList';
+import { Link } from 'react-router-dom';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -37,15 +38,15 @@ export default function NavBar() {
         aria-label="disabled tabs example"
         centered
       >
-        <Tab label="Add TODO" />
-        <Tab label="TODO List" />
+        <Tab label="Add TODO" component={Link} to="/add"  ></Tab>
+        <Tab label="TODO List" component={Link} to="/todos"  ></Tab>
       </Tabs>
-      <TabPanel value={value} index={0}>
+      {/* <TabPanel value={value} index={0}>
         <AddTodo/>
       </TabPanel>
        <TabPanel value={value} index={1}>
         <TodoList/>
-      </TabPanel>
+      </TabPanel> */}
     </Paper>
   );
 }
