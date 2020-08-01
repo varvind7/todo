@@ -4,12 +4,13 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as actions from '../../store/actions/actions';
 class AddTodo extends Component {
     state={
         redirect:false,
         heading:"",
         description:"",
-        todos:[]
     }
 
     componentDidMount(){
@@ -27,16 +28,22 @@ class AddTodo extends Component {
 
         // ];
 
-        let todos= [
-            ...this.state.todos,
-            {
-                heading:this.state.heading,
-                description:this.state.description
-            }
+        // let todos= [
+        //     ...this.state.todos,
+        //     {
+        //         heading:this.state.heading,
+        //         description:this.state.description
+        //     }
             
-        ];
-        this.setState({todos:todos,redirect:true});
-        //console.log(this.state.todos);
+        // ];
+        let todo = {
+            heading:this.state.heading,
+            description:this.state.description
+        }
+        this.props.onTodosAdded(todo);
+        this.setState({redirect:true});
+        console.log('Add Todos:',this.props.todos);
+        //localStorage.setItem( 'Todos', "hello" );
         
     }
     handleChange= (e) => {
@@ -47,7 +54,7 @@ class AddTodo extends Component {
     render() {
 
         if(this.state.redirect === true)
-            return <Redirect to={{pathname:'/todos',state:{todos:this.state.todos}}}/>;
+            return <Redirect to={{pathname:'/todos'}}/>;
         return (
             <Container maxWidth="sm">
         <Grid direction="row" container justify="center" alignItems="center" >
@@ -55,9 +62,9 @@ class AddTodo extends Component {
         <div>
                 <h2>Add a new task</h2>
                 <form onSubmit={this.handleSubmit}>
-                <TextField id="outlined-basic" label="To do" name="heading" onChange={this.handleChange} value={this.state.heading} variant="outlined" />
+                <TextField id="outlined-basic" label="To do" name="heading" onChange={this.handleChange} required value={this.state.heading} variant="outlined" />
                 <br/> <br/>
-                <TextField id="filled-textarea" rows={4} name="description" onChange={this.handleChange}  label="Description" value={this.state.description} multiline variant="outlined" />
+                <TextField id="filled-textarea" rows={4} name="description" onChange={this.handleChange} required  label="Description" value={this.state.description} multiline variant="outlined" />
                 <br/><br/>
                 <Button variant="outlined" type="submit" color="secondary">Add Todo</Button>
                 </form>
@@ -70,4 +77,15 @@ class AddTodo extends Component {
     }
 }
 
-export default AddTodo;
+const mapStateToProps = state => {
+    return {
+      todos: state.addTodo.todos  
+    };
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        onTodosAdded: (todo) => dispatch(actions.addTodo(todo))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddTodo);

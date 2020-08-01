@@ -16,11 +16,11 @@ const MainLayout = () => {
 };
 /*
 TODOS:
-Material UI
-Basic functionality TODO
-local state
-props transfer
-Routes
+Material UI DONE
+Basic functionality TODO DONE 
+local state DONE
+props transfer DONE
+Routes DONE
 Redux
 Thunk and Saga
 Hooks
