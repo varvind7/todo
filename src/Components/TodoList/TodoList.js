@@ -1,7 +1,10 @@
 import React,{Component} from 'react';
 import Container from '@material-ui/core/Container';
 import {connect} from 'react-redux'; 
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { Grid, Card, CardContent, Box } from '@material-ui/core';
+import * as actions from '../../store/actions/actions';
 class TodoList extends Component {
     // state={
     //     todos:[]
@@ -20,19 +23,32 @@ class TodoList extends Component {
     //     }
     // }
 
+    deleteHandler = (index) => {
+        alert(index);
+    }
+
     render() {
-        let todos = this.props.todos.map(todo => {
+        let todos = this.props.todos.map((todo,index) => {
             return (
                 // <Box display="inline" mx="auto" m={2}>
-                        <Grid item>
+                        <Grid key={index} item>
                         <Card>
                             <CardContent>
-                            <h2>{todo.heading}</h2>
-                            <p>{todo.description}</p>
+                            <Grid alignItems="center" justify="center" container spacing={10}>
+                                <Grid  item>
+                                    <h2>{todo.heading}</h2>
+                                    <p>{todo.description}</p>
+                                </Grid>
+                                <Grid  item >
+                                    <IconButton onClick={()=>this.props.onTodoDelete(index)} aria-label="delete">
+                                        <DeleteIcon />
+                                        </IconButton>
+                                </Grid>
+                            </Grid>
                             </CardContent>
                         </Card>
                         </Grid>
-                // </Box>
+                // </Box> style={{marginTop:'20px'}}
             );
         })
         return (
@@ -56,5 +72,10 @@ const mapStateToProps = (state) => {
         todos:state.addTodo.todos
     }
 }
+const mapDispatchToProps = dispatch => {
+    return {
+        onTodoDelete: (index) => dispatch(actions.deleteTodo(index))
+    }
+}
 
-export default connect(mapStateToProps,null)(TodoList);
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList);

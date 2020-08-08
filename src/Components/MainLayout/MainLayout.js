@@ -21,7 +21,7 @@ Basic functionality TODO DONE
 local state DONE
 props transfer DONE
 Routes DONE
-Redux
+Redux DONE
 Thunk and Saga
 Hooks
 

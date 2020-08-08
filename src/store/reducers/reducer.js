@@ -11,6 +11,14 @@ const reducer = (state=initialState,action) => {
                 ...state,
                 todos: state.todos.concat(action.todo)
             }
+        case actionTypes.DELETE_TODO:
+            return {
+                ...state,
+                todos:state.todos.filter((todo,index)=> index !== action.index)
+            }
+            default:
+            return state;
+        
         
     }
     return state;
