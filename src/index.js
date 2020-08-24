@@ -4,16 +4,24 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {Provider} from 'react-redux';
-import {createStore,compose,combineReducers} from 'redux';
+import configureStore from "./configureStore";
+// import {createStore,compose,combineReducers,applyMiddleware} from 'redux';
 import { BrowserRouter} from 'react-router-dom';
-import reducer from './store/reducers/reducer';
+// import reducer from './store/reducers/reducer';
+// import auth from "./store/reducers/index";
+// import thunk from 'redux-thunk';
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const rootReducer = combineReducers({
-    addTodo:reducer
-});
-const store = createStore(rootReducer,composeEnhancers())
+// const rootReducer = combineReducers({
+//     addTodo:reducer,
+//     auth:auth
+// });
+// const store = createStore(rootReducer,composeEnhancers(
+//   applyMiddleware(thunk)
+// ));
+
+const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>

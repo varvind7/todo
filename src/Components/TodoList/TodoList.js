@@ -1,10 +1,11 @@
-import React,{Component} from 'react';
+import React,{Component,useEffect} from 'react';
 import Container from '@material-ui/core/Container';
 import {connect} from 'react-redux'; 
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Grid, Card, CardContent, Box } from '@material-ui/core';
 import * as actions from '../../store/actions/actions';
+let flag=true;
 class TodoList extends Component {
     // state={
     //     todos:[]
@@ -22,7 +23,26 @@ class TodoList extends Component {
     //     console.log('didmount todos',this.state.todos);
     //     }
     // }
-
+    componentDidMount() {
+        if(flag)
+        {
+        this.props.ongetTodos();
+        flag=false;
+        }
+    }
+    // componentDidUpdate(prevProps,prevState) {
+    //     console.log('previous',prevProps.todos);
+    //     console.log('current',this.props.todos);
+    //     if( prevProps.todos == this.props.todos)
+    //         {
+    //             this.props.ongetTodos();
+    //         }
+    // }
+    // constructor(props) {
+    //     super(props);
+    //     this.props.ongetTodos();
+    // }
+    
     deleteHandler = (index) => {
         alert(index);
     }
@@ -74,7 +94,8 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        onTodoDelete: (index) => dispatch(actions.deleteTodo(index))
+        onTodoDelete: (index) => dispatch(actions.deleteTodo(index)),
+        ongetTodos: ()=> dispatch(actions.getTodos())
     }
 }
 

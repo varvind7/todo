@@ -54,7 +54,7 @@ class AddTodo extends Component {
     render() {
 
         if(this.state.redirect === true)
-            return <Redirect to={{pathname:'/todos'}}/>;
+            return <Redirect to={{pathname:'/'}}/>;
         return (
             <Container maxWidth="sm">
         <Grid direction="row" container justify="center" alignItems="center" >

@@ -6,7 +6,8 @@ import AddTodo from '../AddTodo/AddTodo';
 import Box from '@material-ui/core/Box';
 import TodoList from '../TodoList/TodoList';
 import { Link } from 'react-router-dom';
-
+import * as actions from '../../store/actions/';
+import { connect } from 'react-redux';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -20,13 +21,22 @@ function TabPanel(props) {
     </div>
   );
 }
+class NavBar extends React.Component {
+  state= {
+    value:1
+  }
+ setValue=(newValue) => {
+    this.setState({value:newValue});
+  }
+  render()
+  {
 
-export default function NavBar() {
-  const [value, setValue] = React.useState(0);
+  const value = this.state.value
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    this.setValue(newValue);
   };
+  let logoutText=this.props.isAuthenticated?'Logout':'Login';
 
   return (
     <Paper square>
@@ -38,8 +48,10 @@ export default function NavBar() {
         aria-label="disabled tabs example"
         centered
       >
+       
         <Tab label="Add TODO" component={Link} to="/add"  ></Tab>
-        <Tab label="TODO List" component={Link} to="/todos"  ></Tab>
+        <Tab label="TODO List" component={Link} to="/"  ></Tab>
+        <Tab label={logoutText} onClick={this.props.onLogout}></Tab>
       </Tabs>
       {/* <TabPanel value={value} index={0}>
         <AddTodo/>
@@ -50,3 +62,17 @@ export default function NavBar() {
     </Paper>
   );
 }
+}
+function mapStateToProps(state) {
+  return {
+    isAuthenticated: state.auth.isAuthenticated,
+   
+  };
+}
+const mapDispatchToProps = dispatch => {
+  return {
+      onLogout: ()=>dispatch(actions.logoutUser())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
